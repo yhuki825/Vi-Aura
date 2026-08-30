@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vi-Aura｜化粧品・医薬部外品・雑貨・健康器具・健康食品 卸売販売</title>
+<meta name="description" content="Vi-Aura（ヴィオーラ）は、東京都町田市大蔵町を拠点に、化粧品・医薬部外品・雑貨・健康器具・健康食品の卸売販売および付帯コンサルティングを行っています。">
+<meta name="theme-color" content="#0a0c11">
+<meta property="og:title" content="Vi-Aura｜卸売販売・付帯コンサルティング">
+<meta property="og:description" content="つくられたものが、正しい姿で必要な場所へ届くまで。町田市大蔵町の卸売事業者。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Shippori+Mincho+B1:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0c11'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23c9a86a' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='3.2' fill='%23c9a86a'/%3E%3C/svg%3E">
+
+<style>
+/* ============================================================
+   Vi-Aura brand site
+   Concept : 光暈（こううん）— 光源のまわりに生まれる環
+             ＋ 蔵（大蔵町）— 預かり、守り、時が満ちて開く場所
+   Palette : 墨紺 / 藍鉄 / 白練 / 淡金 / 藤鼠
+   ============================================================ */
+
+:root{
+  --ink:        #0a0c11;   /* 墨紺  base            */
+  --ink-2:      #12161f;   /* 藍鉄  raised surface  */
+  --ink-3:      #1b202c;   /* border / hairline     */
+  --haku:       #f2efe9;   /* 白練  primary text    */
+  --haku-dim:   #a7aab3;   /* secondary text        */
+  --kin:        #c9a86a;   /* 淡金  accent          */
+  --kin-soft:   rgba(201,168,106,.16);
+  --fuji:       #8f8aa3;   /* 藤鼠  sub accent      */
+
+  --serif-jp: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --serif-en: "Cormorant Garamond", "Shippori Mincho B1", serif;
+  --sans-jp:  "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --mono:     "IBM Plex Mono", ui-monospace, monospace;
+
+  --pad: clamp(20px, 5vw, 80px);
+  --rail: 88px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--haku);
+  font-family:var(--sans-jp);
+  font-weight:300;
+  line-height:2;
+  letter-spacing:.06em;
+  overflow-x:hidden;
+  font-feature-settings:"palt" 1;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+:focus-visible{ outline:1px solid var(--kin); outline-offset:4px; }
+
+/* 粒子感（紙のような微細ノイズ） */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:80; opacity:.28;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;
+}
+
+/* ---------- header ---------- */
+.hdr{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px var(--pad);
+  transition:background .5s ease, padding .5s ease, border-color .5s ease;
+  border-bottom:1px solid transparent;
+}
+.hdr.solid{
+  background:rgba(10,12,17,.86);
+  backdrop-filter:blur(14px);
+  border-bottom-color:var(--ink-3);
+  padding-top:14px; padding-bottom:14px;
+}
+.mark{ display:flex; align-items:baseline; gap:12px; }
+.mark__logo{
+  font-family:var(--serif-en); font-size:clamp(21px,2.3vw,26px); font-weight:400;
+  letter-spacing:.18em; line-height:1;
+}
+.mark__logo em{ font-style:italic; color:var(--kin); }
+.mark__sub{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.34em;
+  color:var(--haku-dim); text-transform:uppercase;
+}
+.nav{ display:flex; gap:clamp(18px,2.4vw,34px); align-items:center; }
+.nav a{
+  font-family:var(--mono); font-size:11px; letter-spacing:.2em;
+  color:var(--haku-dim); transition:color .35s ease; position:relative; padding:4px 0;
+}
+.nav a::after{
+  content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+  background:var(--kin); transition:width .45s cubic-bezier(.2,.7,.2,1);
+}
+.nav a:hover{ color:var(--haku); }
+.nav a:hover::after{ width:100%; }
+.burger{
+  display:none; width:38px; height:38px; border:1px solid var(--ink-3);
+  background:transparent; cursor:pointer; padding:0; position:relative; border-radius:50%;
+}
+.burger span{
+  position:absolute; left:11px; width:16px; height:1px; background:var(--haku);
+  transition:transform .4s ease, opacity .3s ease;
+}
+.burger span:nth-child(1){ top:16px; }
+.burger span:nth-child(2){ top:21px; }
+.burger.open span:nth-child(1){ transform:translateY(2.5px) rotate(45deg); }
+.burger.open span:nth-child(2){ transform:translateY(-2.5px) rotate(-45deg); }
+
+/* ---------- 光度レール（スクロール量＝光の強さ） ---------- */
+.rail{
+  position:fixed; right:26px; top:50%; transform:translateY(-50%);
+  z-index:55; display:flex; flex-direction:column; align-items:center; gap:12px;
+  mix-blend-mode:screen;
+}
+.rail__track{
+  width:1px; height:34vh; background:linear-gradient(to bottom,rgba(242,239,233,.05),rgba(242,239,233,.22));
+  position:relative;
+}
+.rail__dot{
+  position:absolute; left:50%; top:0; width:7px; height:7px; margin-left:-3.5px; margin-top:-3.5px;
+  border-radius:50%; background:var(--kin);
+  box-shadow:0 0 0 3px rgba(201,168,106,.18), 0 0 16px 4px rgba(201,168,106,.5);
+  transition:top .12s linear;
+}
+.rail__val{ font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; color:var(--kin); }
+.rail__cap{
+  font-family:var(--mono); font-size:9px; letter-spacing:.3em; color:var(--haku-dim);
+  writing-mode:vertical-rl;
+}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative; min-height:100svh; display:flex; align-items:center;
+  padding:120px var(--pad) 80px; overflow:hidden;
+}
+#halo{ position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.hero__bg{
+  position:absolute; inset:0; z-index:-1; opacity:.2;
+  background-size:cover; background-position:center;
+  filter:grayscale(1) contrast(1.1) brightness(.5);
+}
+.hero::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:radial-gradient(120% 90% at 50% 45%, rgba(10,12,17,0) 0%, rgba(10,12,17,.55) 55%, var(--ink) 88%);
+  pointer-events:none;
+}
+.hero__inner{ position:relative; z-index:2; width:100%; display:flex; justify-content:center; }
+.hero__title{
+  writing-mode:vertical-rl; text-orientation:upright;
+  font-family:var(--serif-jp); font-weight:400;
+  font-size:clamp(26px,4.2vw,48px); line-height:1.85; letter-spacing:.24em;
+  margin:0; text-align:start;
+}
+.hero__title .lead{ color:var(--kin); }
+.hero__meta{
+  position:absolute; z-index:2; left:var(--pad); bottom:56px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.26em; color:var(--haku-dim); line-height:2.4;
+}
+.hero__meta strong{ color:var(--haku); font-weight:400; display:block; letter-spacing:.2em; }
+.hero__scroll{
+  position:absolute; z-index:2; right:var(--pad); bottom:56px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.3em; color:var(--haku-dim);
+  writing-mode:vertical-rl; display:flex; align-items:center; gap:14px;
+}
+.hero__scroll::after{
+  content:""; width:1px; height:56px; background:linear-gradient(to bottom,var(--kin),transparent);
+  animation:drop 2.6s ease-in-out infinite;
+}
+@keyframes drop{ 0%{transform:scaleY(.2);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+/* ---------- section basics ---------- */
+.sec{ position:relative; padding:clamp(90px,13vh,150px) var(--pad); }
+.sec--tint{ background:var(--ink-2); }
+.sec__head{ display:flex; align-items:baseline; gap:22px; margin-bottom:52px; flex-wrap:wrap; }
+.sec__num{ font-family:var(--mono); font-size:10px; letter-spacing:.28em; color:var(--kin); }
+.sec__en{
+  font-family:var(--serif-en); font-size:clamp(28px,4.4vw,54px); font-weight:300;
+  letter-spacing:.1em; line-height:1; margin:0;
+}
+.sec__jp{ font-family:var(--mono); font-size:10.5px; letter-spacing:.3em; color:var(--haku-dim); }
+.hr{ height:1px; background:var(--ink-3); border:0; margin:0; }
+
+.lede{
+  font-family:var(--serif-jp); font-size:clamp(17px,2.2vw,25px); line-height:2.5;
+  letter-spacing:.12em; margin:0 0 34px; font-weight:400;
+}
+.body-txt{ font-size:14px; line-height:2.4; color:var(--haku-dim); max-width:62ch; margin:0 0 20px; }
+.body-txt strong{ color:var(--haku); font-weight:400; }
+
+/* ---------- concept ---------- */
+.concept{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(32px,6vw,86px); align-items:center; }
+.concept__fig{ position:relative; }
+.concept__fig img{
+  width:100%; aspect-ratio:4/5; object-fit:cover;
+  filter:grayscale(1) contrast(1.05) brightness(.72);
+}
+.concept__fig::after{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(60% 45% at 50% 40%, rgba(201,168,106,.28), transparent 70%);
+  mix-blend-mode:overlay;
+}
+.concept__cap{
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.24em; color:var(--haku-dim);
+  margin-top:12px; display:block;
+}
+.kanji-note{
+  border-left:1px solid var(--kin); padding:6px 0 6px 20px; margin-top:36px;
+}
+.kanji-note dt{ font-family:var(--serif-jp); font-size:18px; letter-spacing:.16em; margin-bottom:6px; }
+.kanji-note dd{ margin:0; font-size:13px; color:var(--haku-dim); line-height:2.2; }
+
+/* ---------- business ---------- */
+.biz{ border-top:1px solid var(--ink-3); }
+.biz__row{
+  display:grid; grid-template-columns:74px 1fr minmax(240px,.9fr);
+  gap:clamp(16px,4vw,48px); align-items:center;
+  padding:30px 0; border-bottom:1px solid var(--ink-3);
+  transition:background .5s ease, padding-left .5s ease;
+}
+.biz__row:hover{ background:linear-gradient(90deg,var(--kin-soft),transparent 55%); padding-left:14px; }
+.biz__idx{ font-family:var(--mono); font-size:10px; letter-spacing:.2em; color:var(--kin); }
+.biz__ttl{
+  font-family:var(--serif-jp); font-size:clamp(18px,2.5vw,27px); letter-spacing:.14em; margin:0; font-weight:400;
+}
+.biz__ttl span{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.26em; color:var(--haku-dim); margin-top:10px; }
+.biz__txt{ font-size:13px; color:var(--haku-dim); line-height:2.2; margin:0; }
+
+.band{ position:relative; height:clamp(220px,38vh,420px); overflow:hidden; }
+.band img{ width:100%; height:100%; object-fit:cover; filter:grayscale(1) brightness(.5) contrast(1.1); }
+.band::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom,var(--ink),rgba(10,12,17,.25) 45%,var(--ink)),
+             radial-gradient(50% 60% at 50% 50%, rgba(201,168,106,.22), transparent 70%);
+}
+.band__cap{
+  position:absolute; z-index:2; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif-jp); font-size:clamp(15px,2.4vw,24px); letter-spacing:.3em;
+}
+
+/* ---------- standard ---------- */
+.std{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--ink-3); border:1px solid var(--ink-3); }
+.std__item{ background:var(--ink); padding:34px 26px 40px; }
+.std__k{ font-family:var(--serif-jp); font-size:26px; color:var(--kin); line-height:1; }
+.std__t{ font-family:var(--serif-jp); font-size:17px; letter-spacing:.14em; margin:20px 0 14px; font-weight:500; }
+.std__d{ font-size:12.5px; line-height:2.1; color:var(--haku-dim); margin:0; }
+
+/* ---------- flow ---------- */
+.flow{ position:relative; padding-left:34px; }
+.flow::before{
+  content:""; position:absolute; left:5px; top:8px; bottom:8px; width:1px;
+  background:linear-gradient(to bottom,var(--kin),rgba(201,168,106,.15));
+}
+.flow__step{ position:relative; padding:0 0 42px; }
+.flow__step:last-child{ padding-bottom:0; }
+.flow__step::before{
+  content:""; position:absolute; left:-33px; top:11px; width:9px; height:9px; border-radius:50%;
+  background:var(--ink); border:1px solid var(--kin);
+}
+.flow__step.in::before{ box-shadow:0 0 12px 2px rgba(201,168,106,.55); background:var(--kin); }
+.flow__n{ font-family:var(--mono); font-size:9.5px; letter-spacing:.26em; color:var(--kin); }
+.flow__t{ font-family:var(--serif-jp); font-size:19px; letter-spacing:.14em; margin:10px 0 10px; font-weight:400; }
+.flow__d{ font-size:13px; color:var(--haku-dim); line-height:2.2; margin:0; max-width:56ch; }
+
+/* ---------- message ---------- */
+.msg{ display:grid; grid-template-columns:auto 1fr; gap:clamp(28px,6vw,70px); }
+.msg__vert{
+  writing-mode:vertical-rl; font-family:var(--serif-jp);
+  font-size:clamp(19px,2.6vw,30px); line-height:2.1; letter-spacing:.22em; margin:0;
+  max-height:70vh;
+}
+.msg__body p{ font-size:13.5px; line-height:2.5; color:var(--haku-dim); margin:0 0 22px; max-width:60ch; }
+.msg__sign{ margin-top:34px; display:flex; align-items:baseline; gap:16px; }
+.msg__sign small{ font-family:var(--mono); font-size:9.5px; letter-spacing:.26em; color:var(--haku-dim); }
+.msg__sign b{ font-family:var(--serif-jp); font-size:20px; font-weight:500; letter-spacing:.2em; }
+
+/* ---------- profile ---------- */
+.prof{ border-top:1px solid var(--ink-3); }
+.prof__row{
+  display:grid; grid-template-columns:200px 1fr; gap:24px;
+  padding:20px 0; border-bottom:1px solid var(--ink-3);
+}
+.prof__k{ font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; color:var(--haku-dim); padding-top:4px; }
+.prof__v{ font-size:14px; line-height:2.2; }
+.tbc{
+  display:inline-block; font-family:var(--mono); font-size:9.5px; letter-spacing:.18em;
+  color:var(--kin); border:1px solid rgba(201,168,106,.4); padding:1px 8px; margin-left:8px; border-radius:2px;
+  vertical-align:middle;
+}
+.note{
+  margin-top:34px; padding:22px 24px; border:1px solid var(--ink-3); background:var(--ink);
+  font-size:12px; line-height:2.1; color:var(--haku-dim);
+}
+.note h4{ margin:0 0 10px; font-family:var(--mono); font-size:10px; letter-spacing:.24em; color:var(--kin); font-weight:400; }
+.note ul{ margin:0; padding-left:18px; }
+.note li{ margin-bottom:6px; }
+
+/* ---------- footer ---------- */
+.ftr{ padding:70px var(--pad) 44px; border-top:1px solid var(--ink-3); }
+.ftr__top{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; flex-wrap:wrap; }
+.ftr__logo{ font-family:var(--serif-en); font-size:clamp(38px,8vw,92px); font-weight:300; letter-spacing:.12em; line-height:1; }
+.ftr__logo em{ font-style:italic; color:var(--kin); }
+.ftr__addr{ font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; color:var(--haku-dim); line-height:2.2; text-align:right; }
+.ftr__bottom{ margin-top:44px; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; color:var(--haku-dim); }
+
+/* ---------- reveal ---------- */
+.rv{ opacity:0; transform:translateY(24px); transition:opacity 1.1s cubic-bezier(.2,.7,.2,1), transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.rv.in{ opacity:1; transform:none; }
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .concept{ grid-template-columns:1fr; }
+  .std{ grid-template-columns:repeat(2,1fr); }
+  .biz__row{ grid-template-columns:56px 1fr; }
+  .biz__txt{ grid-column:2 / -1; }
+  .msg{ grid-template-columns:1fr; }
+  .msg__vert{ writing-mode:horizontal-tb; max-height:none; letter-spacing:.14em; line-height:2.1; }
+  .rail{ display:none; }
+}
+@media (max-width:720px){
+  .burger{ display:block; }
+  .nav{
+    position:fixed; inset:0; background:rgba(10,12,17,.97); backdrop-filter:blur(10px);
+    flex-direction:column; justify-content:center; gap:26px;
+    opacity:0; pointer-events:none; transition:opacity .45s ease; z-index:-1;
+  }
+  .nav.open{ opacity:1; pointer-events:auto; z-index:59; }
+  .nav a{ font-size:13px; letter-spacing:.28em; }
+  .hero__title{ writing-mode:horizontal-tb; text-orientation:mixed; letter-spacing:.14em; line-height:2.1; }
+  .hero__inner{ justify-content:flex-start; }
+  .hero__scroll{ display:none; }
+  .std{ grid-template-columns:1fr; }
+  .prof__row{ grid-template-columns:1fr; gap:4px; }
+  .ftr__addr{ text-align:left; }
+  body{ line-height:1.95; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{ animation:none !important; transition-duration:.01ms !important; }
+  .rv{ opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <a class="mark" href="#top" aria-label="Vi-Aura ホーム">
+    <span class="mark__logo">Vi<em>-</em>Aura</span>
+    <span class="mark__sub">Wholesale</span>
+  </a>
+  <nav class="nav" id="nav">
+    <a href="#concept">Concept</a>
+    <a href="#business">Business</a>
+    <a href="#standard">Standard</a>
+    <a href="#flow">Flow</a>
+    <a href="#message">Message</a>
+    <a href="#profile">Profile</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ 光度レール ============ -->
+<div class="rail" aria-hidden="true">
+  <span class="rail__val" id="railVal">00</span>
+  <div class="rail__track"><span class="rail__dot" id="railDot"></span></div>
+  <span class="rail__cap">LUMINANCE</span>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero__bg" id="heroBg"></div>
+  <canvas id="halo" aria-hidden="true"></canvas>
+  <div class="hero__inner">
+    <h1 class="hero__title">
+      光は、<br><span class="lead">もののまわり</span>に宿る。
+    </h1>
+  </div>
+  <div class="hero__meta">
+    <strong>Vi-Aura</strong>
+    化粧品／医薬部外品／雑貨<br>
+    健康器具／健康食品　卸売販売<br>
+    Machida, Tokyo
+  </div>
+  <div class="hero__scroll">SCROLL</div>
+</section>
+
+<!-- ============ CONCEPT ============ -->
+<section class="sec" id="concept">
+  <div class="sec__head">
+    <span class="sec__num">01</span>
+    <h2 class="sec__en">Concept</h2>
+    <span class="sec__jp">光暈（こううん）</span>
+  </div>
+
+  <div class="concept">
+    <div class="rv">
+      <p class="lede">
+        商品そのものではなく、<br>
+        商品のまわりを、ととのえる。
+      </p>
+      <p class="body-txt">
+        光源をじっと見つめると、そのまわりにやわらかな環が見えます。<strong>光暈</strong>と呼ばれるその環は、光そのものではありません。けれど、環があることで、私たちは光の強さと輪郭をはじめて知ることができます。
+      </p>
+      <p class="body-txt">
+        卸売という仕事も、これによく似ています。つくるのはメーカー、届けるのは店舗。私たちはその間で、<strong>供給の条件・情報の正確さ・法令との整合</strong>を整えます。表に出る仕事ではありませんが、そこが整っているかどうかで、商品の見え方は変わります。
+      </p>
+      <p class="body-txt">
+        Vi-Aura は、化粧品・医薬部外品・雑貨・健康器具・健康食品という、人の体にふれる領域を扱います。だからこそ、扱う量よりも、扱い方を先に決めています。
+      </p>
+
+      <dl class="kanji-note">
+        <dt>大蔵町という場所</dt>
+        <dd>
+          拠点を置く町田市大蔵町の「蔵」は、預かり、守り、時が満ちたときに開く場所を意味します。仕入れて、置いて、必要なときに必要な量だけ動かす。屋号の由来である光と、地名にある蔵。この二つが、Vi-Aura の仕事の輪郭です。
+        </dd>
+      </dl>
+    </div>
+
+    <figure class="concept__fig rv" style="margin:0">
+      <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80"
+           alt="ガラス容器に入った化粧品に光が差している様子"
+           loading="lazy"
+           onerror="this.onerror=null;this.src='https://picsum.photos/seed/viaura-concept/1000/1250?grayscale';">
+      <figcaption class="concept__cap">HALO ─ 光は、ふれるものの輪郭をつくる</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ BUSINESS ============ -->
+<section class="sec sec--tint" id="business">
+  <div class="sec__head">
+    <span class="sec__num">02</span>
+    <h2 class="sec__en">Business</h2>
+    <span class="sec__jp">事業内容</span>
+  </div>
+
+  <p class="body-txt rv" style="margin-bottom:44px">
+    取扱いは、生活のなかで肌にふれ、口に入り、体を支えるもの。仕入から在庫、供給条件の設計までを一貫して担い、必要に応じて商品選定や販路づくりのご相談にも対応します。
+  </p>
+
+  <div class="biz">
+    <div class="biz__row rv">
+      <span class="biz__idx">A</span>
+      <h3 class="biz__ttl">化粧品<span>COSMETICS</span></h3>
+      <p class="biz__txt">スキンケア・メイクアップ製品の卸売。表示・広告表現の確認を含め、店頭で扱いやすい状態にしてお渡しします。</p>
+    </div>
+    <div class="biz__row rv">
+      <span class="biz__idx">B</span>
+      <h3 class="biz__ttl">医薬部外品<span>QUASI-DRUGS</span></h3>
+      <p class="biz__txt">薬用化粧品・整肌用品など。承認・届出内容と表示の一致を確認したうえで供給します。</p>
+    </div>
+    <div class="biz__row rv">
+      <span class="biz__idx">C</span>
+      <h3 class="biz__ttl">雑貨<span>SUNDRY GOODS</span></h3>
+      <p class="biz__txt">日用雑貨・美容小物・関連資材。売場の構成にあわせて、単品ではなくまとまりで組み立てます。</p>
+    </div>
+    <div class="biz__row rv">
+      <span class="biz__idx">D</span>
+      <h3 class="biz__ttl">健康器具<span>HEALTH DEVICES</span></h3>
+      <p class="biz__txt">日常のコンディショニングを支える器具類。医療機器区分に該当する製品は、区分と必要手続を確認のうえ取り扱います。</p>
+    </div>
+    <div class="biz__row rv">
+      <span class="biz__idx">E</span>
+      <h3 class="biz__ttl">健康食品<span>HEALTH FOODS</span></h3>
+      <p class="biz__txt">サプリメント・健康補助食品。原材料表示、アレルゲン、賞味期限の管理を前提に供給します。</p>
+    </div>
+    <div class="biz__row rv">
+      <span class="biz__idx">F</span>
+      <h3 class="biz__ttl">付帯コンサルティング<span>CONSULTING</span></h3>
+      <p class="biz__txt">品揃えの設計、仕入条件の見直し、販路開拓の相談など。卸売の現場で見えている情報を、そのままお渡しします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAND IMAGE ============ -->
+<div class="band" aria-hidden="true">
+  <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1800&q=80"
+       alt=""
+       loading="lazy"
+       onerror="this.onerror=null;this.src='https://picsum.photos/seed/viaura-band/1800/700?grayscale';">
+  <p class="band__cap">扱い方を、先に決める。</p>
+</div>
+
+<!-- ============ STANDARD ============ -->
+<section class="sec" id="standard">
+  <div class="sec__head">
+    <span class="sec__num">03</span>
+    <h2 class="sec__en">Standard</h2>
+    <span class="sec__jp">取扱いの基準</span>
+  </div>
+
+  <p class="body-txt rv" style="margin-bottom:44px">
+    体にふれるものを扱う以上、「売れるかどうか」より先に確認することがあります。Vi-Aura が仕入の可否を判断するときの、四つの基準です。
+  </p>
+
+  <div class="std">
+    <div class="std__item rv">
+      <span class="std__k">一</span>
+      <h3 class="std__t">法令との整合</h3>
+      <p class="std__d">薬機法・食品表示法・景品表示法に照らし、表示と広告表現が説明できる状態かを確認します。判断がつかないものは扱いません。</p>
+    </div>
+    <div class="std__item rv">
+      <span class="std__k">二</span>
+      <h3 class="std__t">供給の安定</h3>
+      <p class="std__d">一度きりで終わらないこと。生産背景とリードタイムを把握し、継続して同じ品質で届けられるかを見ます。</p>
+    </div>
+    <div class="std__item rv">
+      <span class="std__k">三</span>
+      <h3 class="std__t">情報の一致</h3>
+      <p class="std__d">メーカーの説明、パッケージの表示、店頭の案内。三つの内容がずれていないかを、供給前に突き合わせます。</p>
+    </div>
+    <div class="std__item rv">
+      <span class="std__k">四</span>
+      <h3 class="std__t">売場との相性</h3>
+      <p class="std__d">よい商品でも、置かれる場所を選びます。取引先の客層と価格帯に無理がないかを、数量を決める前に確かめます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOW ============ -->
+<section class="sec sec--tint" id="flow">
+  <div class="sec__head">
+    <span class="sec__num">04</span>
+    <h2 class="sec__en">Flow</h2>
+    <span class="sec__jp">取引の流れ</span>
+  </div>
+
+  <div class="flow">
+    <div class="flow__step rv">
+      <span class="flow__n">STEP 01</span>
+      <h3 class="flow__t">与件の整理</h3>
+      <p class="flow__d">売場の形態、客層、価格帯、現在の課題をうかがいます。商品の話に入る前に、何が足りていないのかを言葉にします。</p>
+    </div>
+    <div class="flow__step rv">
+      <span class="flow__n">STEP 02</span>
+      <h3 class="flow__t">選定と確認</h3>
+      <p class="flow__d">候補となる商品を絞り、表示・区分・供給背景を確認します。サンプルでの確認が必要な場合はここで手配します。</p>
+    </div>
+    <div class="flow__step rv">
+      <span class="flow__n">STEP 03</span>
+      <h3 class="flow__t">条件の設計</h3>
+      <p class="flow__d">数量、価格、納期、支払条件を決めます。初回はあえて小さく始め、動き方を見てから広げることをおすすめしています。</p>
+    </div>
+    <div class="flow__step rv">
+      <span class="flow__n">STEP 04</span>
+      <h3 class="flow__t">供給の開始</h3>
+      <p class="flow__d">在庫を確保し、取り決めた条件で出荷します。ロットや期限の情報は、そのつど記録として残します。</p>
+    </div>
+    <div class="flow__step rv">
+      <span class="flow__n">STEP 05</span>
+      <h3 class="flow__t">運用と見直し</h3>
+      <p class="flow__d">動きの早い品、止まった品を共有し、品揃えと数量を組み替えます。付帯コンサルティングは、この段階から本格的に機能します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MESSAGE ============ -->
+<section class="sec" id="message">
+  <div class="sec__head">
+    <span class="sec__num">05</span>
+    <h2 class="sec__en">Message</h2>
+    <span class="sec__jp">代表者より</span>
+  </div>
+
+  <div class="msg">
+    <p class="msg__vert rv">
+      預かったものを、<br>あるべき場所へ。
+    </p>
+    <div class="msg__body rv">
+      <p>
+        卸売は、商品をつくる人と、売る人のあいだにある仕事です。名前が表に出ることはほとんどありません。それでも、間に立つ者が何を確認し、何を確認しなかったかは、最後に商品を手に取る方のところまで届いてしまいます。
+      </p>
+      <p>
+        化粧品も、健康食品も、健康器具も、使う方の生活のなかに入っていくものです。ですから Vi-Aura では、扱う品数を増やすことより、一つひとつの説明がつく状態を保つことを優先しています。数を追わないぶん、動きの速い商品も、止まってしまった商品も、理由まで含めてお話しできると考えています。
+      </p>
+      <p>
+        町田・大蔵町という、都心から少し離れた場所に拠点を置いています。急いで大きくするのではなく、預かったものを確かに次へ渡す。その積み重ねが、取引先の売場の力になればと思っています。
+      </p>
+      <div class="msg__sign">
+        <small>Vi-Aura ／ 代表</small>
+        <b>樋口 博信</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE ============ -->
+<section class="sec sec--tint" id="profile">
+  <div class="sec__head">
+    <span class="sec__num">06</span>
+    <h2 class="sec__en">Profile</h2>
+    <span class="sec__jp">事業概要</span>
+  </div>
+
+  <div class="prof rv">
+    <div class="prof__row">
+      <span class="prof__k">屋号 / NAME</span>
+      <span class="prof__v">Vi-Aura（ヴィオーラ）</span>
+    </div>
+    <div class="prof__row">
+      <span class="prof__k">代表者 / OWNER</span>
+      <span class="prof__v">樋口 博信</span>
+    </div>
+    <div class="prof__row">
+      <span class="prof__k">所在地 / ADDRESS</span>
+      <span class="prof__v">〒195-0062　東京都町田市大蔵町</span>
+    </div>
+    <div class="prof__row">
+      <span class="prof__k">事業内容 / BUSINESS</span>
+      <span class="prof__v">
+        化粧品・医薬部外品・雑貨・健康器具・健康食品の卸売販売<br>
+        上記に付帯するコンサルティング業務
+      </span>
+    </div>
+    <!--
+    <div class="prof__row">
+      <span class="prof__k">開業 / ESTABLISHED</span>
+      <span class="prof__v">―<span class="tbc">要確認</span></span>
+    </div>
+    <div class="prof__row">
+      <span class="prof__k">営業時間 / HOURS</span>
+      <span class="prof__v">―<span class="tbc">要確認</span></span>
+    </div>
+    <div class="prof__row">
+      <span class="prof__k">許認可 / LICENSE</span>
+      <span class="prof__v">―<span class="tbc">要確認</span></span>
+    </div>
+    -->
+  </div>
+  <!--
+  <div class="note rv">
+    <h4>掲載前にご確認ください</h4>
+    <ul>
+      <li>「要確認」表記の項目（番地・開業年月・営業時間・許認可番号）は、実際の内容に差し替えてください。</li>
+      <li>健康器具のうち<strong>管理医療機器</strong>を取り扱う場合は販売業の届出、<strong>高度管理医療機器</strong>の場合は販売業許可が必要です。取得済みであれば許認可欄に番号を記載してください。</li>
+      <li>中古品を取り扱う予定がある場合は、古物商許可番号の記載が必要です。</li>
+      <li>代表者メッセージ・コンセプト文は本サイト用の草案です。内容をご確認のうえ、修正してご利用ください。</li>
+      <li>掲載画像はフリー素材（Unsplash）の仮画像です。実際の商品・倉庫の写真への差し替えを推奨します。</li>
+    </ul>
+  </div>
+  -->
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ftr">
+  <div class="ftr__top">
+    <div class="ftr__logo">Vi<em>-</em>Aura</div>
+    <div class="ftr__addr">
+      〒195-0062　東京都町田市大蔵町<br>
+      COSMETICS ／ QUASI-DRUGS ／ SUNDRY<br>
+      HEALTH DEVICES ／ HEALTH FOODS
+    </div>
+  </div>
+  <hr class="hr" style="margin-top:36px">
+  <div class="ftr__bottom">
+    <span>&copy; <span id="yr">2026</span> Vi-Aura. ALL RIGHTS RESERVED.</span>
+    <span>MACHIDA, TOKYO, JAPAN</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- 年号 ---- */
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ---- ヒーロー背景（フォールバック付き） ---- */
+  (function(){
+    var el = document.getElementById("heroBg");
+    var primary = "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1800&q=80";
+    var fallback = "https://picsum.photos/seed/viaura-hero/1800/1100?grayscale";
+    var probe = new Image();
+    probe.onload  = function(){ el.style.backgroundImage = "url('" + primary + "')"; };
+    probe.onerror = function(){ el.style.backgroundImage = "url('" + fallback + "')"; };
+    probe.src = primary;
+  })();
+
+  /* ---- ヘッダー ---- */
+  var hdr = document.getElementById("hdr");
+  var burger = document.getElementById("burger");
+  var nav = document.getElementById("nav");
+
+  burger.addEventListener("click", function(){
+    var open = nav.classList.toggle("open");
+    burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  nav.addEventListener("click", function(e){
+    if(e.target.tagName === "A" && nav.classList.contains("open")){
+      nav.classList.remove("open");
+      burger.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+      document.body.style.overflow = "";
+    }
+  });
+
+  /* ---- 光度レール ＋ ヘッダー状態 ---- */
+  var railDot = document.getElementById("railDot");
+  var railVal = document.getElementById("railVal");
+  var ticking = false;
+
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+    hdr.classList.toggle("solid", y > 60);
+    if(railDot){
+      railDot.style.top = (p * 100).toFixed(2) + "%";
+      railVal.textContent = String(Math.round(p * 100)).padStart(2, "0");
+    }
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){
+    if(!ticking){ ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive:true });
+  onScroll();
+
+  /* ---- スクロールリビール ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold:0.16, rootMargin:"0px 0px -8% 0px" });
+  document.querySelectorAll(".rv, .flow__step").forEach(function(el, i){
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 70) + "ms";
+    io.observe(el);
+  });
+
+  /* ---- 光暈：同心円のリングが呼吸する ---- */
+  var cv = document.getElementById("halo");
+  var ctx = cv.getContext("2d");
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var W = 0, H = 0, t = 0;
+  var mx = 0, my = 0, tx = 0, ty = 0;
+
+  function resize(){
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  window.addEventListener("pointermove", function(e){
+    tx = (e.clientX / window.innerWidth  - .5) * 40;
+    ty = (e.clientY / window.innerHeight - .5) * 28;
+  }, { passive:true });
+
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    mx += (tx - mx) * .045;
+    my += (ty - my) * .045;
+
+    var cx = W / 2 + mx;
+    var cy = H / 2 + my;
+    var base = Math.min(W, H) * 0.34;
+
+    /* 中心の光源 */
+    var core = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.9);
+    core.addColorStop(0,    "rgba(242,239,233,0.30)");
+    core.addColorStop(0.28, "rgba(201,168,106,0.14)");
+    core.addColorStop(1,    "rgba(201,168,106,0)");
+    ctx.fillStyle = core;
+    ctx.beginPath(); ctx.arc(cx, cy, base * 0.9, 0, Math.PI * 2); ctx.fill();
+
+    /* 光暈のリング（呼吸する同心円） */
+    var rings = 7;
+    for(var i = 0; i < rings; i++){
+      var phase = t * 0.0035 + i * 0.62;
+      var breathe = 1 + Math.sin(phase) * 0.045;
+      var r = base * (0.52 + i * 0.185) * breathe;
+      var alpha = (0.30 - i * 0.036) * (0.72 + Math.sin(phase) * 0.28);
+      if(alpha <= 0) continue;
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(201,168,106," + alpha.toFixed(3) + ")";
+      ctx.lineWidth = i === 0 ? 1.2 : 0.7;
+      ctx.stroke();
+
+      /* リング上を巡る微小な光点 */
+      var a = t * 0.0016 * (i % 2 === 0 ? 1 : -1) + i * 1.1;
+      var px = cx + Math.cos(a) * r;
+      var py = cy + Math.sin(a) * r;
+      var g = ctx.createRadialGradient(px, py, 0, px, py, 16);
+      g.addColorStop(0, "rgba(242,239,233," + (alpha * 1.8).toFixed(3) + ")");
+      g.addColorStop(1, "rgba(242,239,233,0)");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(px, py, 16, 0, Math.PI * 2); ctx.fill();
+    }
+
+    t += 16;
+    if(!reduce) requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
